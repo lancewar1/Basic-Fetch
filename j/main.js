@@ -1,4 +1,4 @@
-
+document.addEventListener('DOMContentLoaded', init);
 //This code does NOT create any global variables.
 //Promises can be chained together, with the previous promise
 // passing its results to the next one in the chain.
@@ -19,10 +19,16 @@ fetch("houses.json")
 
             // generate the html snippet for one array item
             //to be added to the "html" temp holder.
-            let objInfo = `<p class="house">${house.name}</p>
-        <p class="folks">${family}</p>`;
+            let objInfo = `<dl> <dt class="house">${house.name}</dt>
+        <dd class="folks">${family}</dd> </dl>`;
             html += objInfo;
         });
+
+        
+        
+
+        
+
 
         //make a reference to the html container where
         //the info will be displayed.
@@ -31,3 +37,19 @@ fetch("houses.json")
     })
     .catch((err) => console.log("Oops!", err));
     //this only runs if there is an error during the above process
+
+
+    function init() {
+        fetch("https://www.colr.org/json/colors/random")
+        .then(response => response.json()) 
+        .then(data => {
+          let myColors = [];
+          data.colors.forEach(item => {
+            myColors.push("#" + item.hex);  
+          });
+          document.body.style.backgroundColor = myColors[2];
+        }).catch(err => {
+          console.error('oops', err.message);
+        });
+      }
+      
